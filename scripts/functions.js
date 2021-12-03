@@ -26,3 +26,25 @@ const generateRecipesDOM = recipe => {
 
 	return div;
 };
+
+// Retrieved saved recipes from localStorage
+const getSavedRecipes = () => {
+	const recipesJSON = localStorage.getItem('recipes');
+
+	try {
+		return recipesJSON ? JSON.parse(recipesJSON) : [];
+	} catch (error) {
+		return [];
+	}
+};
+
+// Grab individual recipe index by it's id
+const getRecipeIndex = id => {
+	const recipes = getSavedRecipes();
+
+	const index = recipes.findIndex(recipe => {
+		return recipe.id === id;
+	});
+
+	return index;
+};

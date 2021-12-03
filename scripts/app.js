@@ -1,11 +1,5 @@
 const btnAddRecipe = document.querySelector('#add-recipe');
-let recipes = [];
-
-const recipesJSON = localStorage.getItem('recipes');
-
-if (recipesJSON) {
-	recipes = JSON.parse(recipesJSON);
-}
+const recipes = getSavedRecipes();
 
 btnAddRecipe.addEventListener('click', event => {
 	const id = uuidv4();
@@ -20,4 +14,4 @@ btnAddRecipe.addEventListener('click', event => {
 	location.assign(`./recipes.html#${id}`);
 });
 
-console.log(renderRecipes(recipes));
+renderRecipes(recipes);
