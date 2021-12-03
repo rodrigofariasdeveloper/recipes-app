@@ -8,16 +8,21 @@ const renderRecipes = recipes => {
 	document.querySelector('#recipes').innerHTML = '';
 
 	return recipes.forEach(recipe => {
-		const div = document.createElement('div');
-		const a = document.createElement('a');
-		
-		a.textContent = recipe.title;
-		a.href = `./recipes.html#${recipe.id}`;
-		a.className = 'recipe-link';
-
-		div.className = 'recipe-container';
-		div.appendChild(a);
-
-		document.querySelector('#recipes').appendChild(div);
+		document.querySelector('#recipes').appendChild(generateRecipesDOM(recipe));
 	});
+};
+
+// Generate DOM structure for the recipes
+const generateRecipesDOM = recipe => {
+	const div = document.createElement('div');
+	const a = document.createElement('a');
+		
+	a.textContent = recipe.title;
+	a.href = `./recipes.html#${recipe.id}`;
+	a.className = 'recipe-link';
+
+	div.className = 'recipe-container';
+	div.appendChild(a);
+
+	return div;
 };

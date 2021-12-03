@@ -4,7 +4,7 @@ let recipes = [];
 const recipesJSON = localStorage.getItem('recipes');
 
 if (recipesJSON) {
-	recipes = JSON.parse(recipesJSON)
+	recipes = JSON.parse(recipesJSON);
 }
 
 btnAddRecipe.addEventListener('click', event => {
