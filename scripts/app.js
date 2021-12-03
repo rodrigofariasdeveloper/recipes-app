@@ -7,6 +7,7 @@ btnAddRecipe.addEventListener('click', event => {
 		id,
 		title: 'Unnamed recipe',
 		body: '',
+		ingredients: [],
 	});
 	
 	saveRecipes(recipes);

@@ -48,3 +48,45 @@ const getRecipeIndex = id => {
 
 	return index;
 };
+
+// Add ingredient to recipe
+const saveIngredient = (ingredient, index) => {
+	const recipes = getSavedRecipes();
+
+	recipes[index].ingredients.push({
+		ingredient,
+		available: false,
+	});
+
+	saveRecipes(recipes);
+};
+
+// Render ingredients to the recipe page
+const renderIngredients = (index) => {
+	
+	document.querySelector('#list-ingredients').innerHTML = '';
+
+	const recipes = getSavedRecipes();
+
+	recipes[index].ingredients.forEach(ingredient => {
+		document.querySelector('#list-ingredients').appendChild(generateIngredientsDOM(ingredient));
+	});
+};
+
+// Generate DOM structure for the ingredients
+const generateIngredientsDOM = ingredient => {
+	const div = document.createElement('div');
+	div.className = 'ingredient';
+
+	const checkbox = document.createElement('input');
+	checkbox.setAttribute('type', 'checkbox');
+
+	const p = document.createElement('p');
+	p.textContent = ingredient.ingredient;
+	p.className = 'ingredient-text';
+
+	div.appendChild(checkbox);
+	div.appendChild(p);
+
+	return div;
+};
