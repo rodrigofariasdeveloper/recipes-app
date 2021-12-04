@@ -16,13 +16,18 @@ const renderRecipes = recipes => {
 const generateRecipesDOM = recipe => {
 	const div = document.createElement('div');
 	const a = document.createElement('a');
-		
+	const p = document.createElement('p');
+
 	a.textContent = recipe.title;
 	a.href = `./recipes.html#${recipe.id}`;
 	a.className = 'recipe-link';
 
+	p.textContent = hasIngredients(recipe);
+	p.className = 'ingredients-status';
+
 	div.className = 'recipe-container';
 	div.appendChild(a);
+	div.appendChild(p);
 
 	return div;
 };
@@ -90,3 +95,18 @@ const generateIngredientsDOM = ingredient => {
 
 	return div;
 };
+
+// Check if recipe has all the ingredients
+const hasIngredients = (recipe) => {
+	// console.log(recipe);
+	const ingredients = recipe.ingredients.map(ingredient => ingredient);
+	const booleans = recipe.ingredients.filter(ingredient => ingredient.available === false);
+
+	if (ingredients.length === 0) {
+		 return 'You did not add any ingredients.';
+	} else if (booleans.length > 0) {
+		return 'You do not have all the ingredients.';
+	} else {
+		return 'You have all the ingredients.';
+	}
+}

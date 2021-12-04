@@ -45,3 +45,4 @@ ingredientForm.addEventListener('submit', function(event) {
 		renderIngredients(index);
 	}
 });
+
