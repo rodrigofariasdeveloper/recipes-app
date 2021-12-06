@@ -11,6 +11,7 @@ const recipeBody = document.querySelector('#recipe-body');
 const ingredientForm = document.querySelector('#ingredients-form');
 const ingredientInput = document.querySelector('#ingredient');
 const ingredientsEl = document.querySelector('#list-ingredients');
+const btnDelete = document.querySelector('#delete-recipe');
 
 // Recipes array and index of individual recipe
 const recipes = getSavedRecipes();
@@ -46,3 +47,8 @@ ingredientForm.addEventListener('submit', function(event) {
 	}
 });
 
+btnDelete.addEventListener('click', event => {
+	recipes.splice(index, 1);
+	saveRecipes(recipes);
+	location.assign('/index.html');
+});
