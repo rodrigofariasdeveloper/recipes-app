@@ -68,37 +68,43 @@ const saveIngredient = (ingredient, index) => {
 
 // Render ingredients to the recipe page
 const renderIngredients = (index) => {
-	
 	document.querySelector('#list-ingredients').innerHTML = '';
 
 	const recipes = getSavedRecipes();
 
 	recipes[index].ingredients.forEach(ingredient => {
-		document.querySelector('#list-ingredients').appendChild(generateIngredientsDOM(ingredient));
+		document.querySelector('#list-ingredients').appendChild(generateIngredientsDOM(ingredient, index));
 	});
 };
 
 // Generate DOM structure for the ingredients
-const generateIngredientsDOM = ingredient => {
+const generateIngredientsDOM = (ingredient, index) => {
+	// Setup root element
 	const div = document.createElement('div');
-	div.className = 'ingredient';
+	div.className = 'ingredient-container';
 
+	// Setup checkbox
 	const checkbox = document.createElement('input');
 	checkbox.setAttribute('type', 'checkbox');
+	checkbox.className = 'ingredient-checkbox';
+	checkbox.checked = ingredient.available;
+	checkbox.addEventListener('change', event => {
+		toggleIngredient(index, checkbox);
+	});
 
+	// Setup ingredient text
 	const p = document.createElement('p');
 	p.textContent = ingredient.ingredient;
 	p.className = 'ingredient-text';
 
+	// Configure DOM structure
 	div.appendChild(checkbox);
 	div.appendChild(p);
-
 	return div;
 };
 
 // Check if recipe has all the ingredients
 const hasIngredients = (recipe) => {
-	// console.log(recipe);
 	const ingredients = recipe.ingredients.map(ingredient => ingredient);
 	const booleans = recipe.ingredients.filter(ingredient => ingredient.available === false);
 
@@ -110,3 +116,18 @@ const hasIngredients = (recipe) => {
 		return 'You have all the ingredients.';
 	}
 }
+
+// Toggle ingredient available status
+const toggleIngredient = (index, checkbox) => {
+		const recipes = getSavedRecipes();
+		const recipe = recipes[index]; // aqui (index)
+		const ingredients = recipe.ingredients;
+
+		const ingredientIndex = ingredients.findIndex(ingredient => ingredient.ingredient === checkbox.nextElementSibling.innerText);
+		if (ingredientIndex > -1) {
+			recipes[index].ingredients[ingredientIndex].available = !recipes[index].ingredients[ingredientIndex].available;
+			console.log(recipes[index].ingredients[ingredientIndex]);
+			console.log(recipes);
+			saveRecipes(recipes);
+		}
+};
